@@ -1,0 +1,28 @@
+GET  http://localhost:3100/users
+
+###
+GET  http://localhost:3100/users/1
+
+###
+POST  http://localhost:3100/users
+Content-Type: application/json
+
+{
+    "name": "hanoman",
+    "email": "hanoman@gmail.com",
+    "gender": "Male"
+}
+
+###
+PATCH http://localhost:3100/users/1
+Content-Type: application/json
+
+
+{
+    "name": "Irvan Taufik Tadjudin",
+    "email": "irvantaufik28@gmail.com",
+    "gender": "Male"
+}
+
+###
+DELETE http://localhost:5000/users/3
