@@ -1,5 +1,4 @@
-const { STRING } = require("sequelize");
-const { sequelize, Sequelize } = require("./bundle.model");
+require("./bundle.model");
 
 module.exports =(sequelize ,Sequelize)=>{
     const Kategori = sequelize.define('kategori',{

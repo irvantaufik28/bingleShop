@@ -1,6 +1,9 @@
 module.exports = (sequelize , Sequelize)=>{
     const Produk = sequelize.define('produk',{
-        
+        id:{
+            type: Sequelize.STRING,
+            primaryKey:true
+        },
         title :{
             type : Sequelize.STRING
         },
