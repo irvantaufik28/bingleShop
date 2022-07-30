@@ -2,7 +2,7 @@ module.exports={
     BASE_URL: 'http://localhost:3000/',
     HOST: 'localhost',
     USER:'postgres',
-    PASSWORD:'123456',
+    PASSWORD:'123456789',
     DBNAME :'bingleShop_db',
     dialect: 'postgres',
     DBPORT: 5432,

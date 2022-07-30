@@ -1,4 +1,4 @@
-const Shecma = require ('./kategori.schema')
+const Schema = require ('./kategori.schema')
 
 module.exports ={
     createKategori:async (req, res, next)=>{
