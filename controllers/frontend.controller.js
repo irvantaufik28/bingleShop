@@ -129,12 +129,43 @@ exports.getDataKeranjang = async (req, res) => {
 }
 
 exports.tambahDataKeranjang = async (req, res )=>{
+ const cekKeranjang =await db.keranjang.findOne({
+    where : [
+      {
+          produk_id: req.body.produk_id
+      },
+      {
+        session_id: req.body.session_id
+      }
+    ]
+  })
+  if(cekKeranjang.length > 0){
+    const data = {
+      produk_id: req.body.produk_id,
+      qty: cekKeranjang.qty +1,
+      session_id: req.body.session_id
+    }
+   await db.keranjang.update(data, {
+      where: {id: cekKeranjang.id}
+    }).then(result =>{
+      res.send({
+        code:200,
+        message: 'Berahasil menambahkan keranjang'
+      })
+    }).catch(err =>{
+      res.status(500).send({
+        code:500,
+        message : "Error update keranjang"
+      })
+    })
+  }
+  
   const data = {
     produk_id: req.body.produk_id,
     qty: req.body.qty,
     session_id:req.body.session_id
   }
-  db.keranjang.create(data).then(result =>{
+  await db.keranjang.create(data).then(result =>{
     res.send({
       code:200,
       message: 'Berhasil menambahkan data Ke keranjang',
@@ -150,11 +181,44 @@ exports.tambahDataKeranjang = async (req, res )=>{
 
 
 exports.ubahDataKeranjang = async (req, res)=>{
+  const id = req.params.id
+  const qty =req.body.qty
 
+  db.keranjang.update({qty : qty},{
+    where: {id : id}
+  }).then(result =>{
+    if(result[0]){
+      res.send({
+        code:200,
+        message : "Sukses Ubad data"
+      })
+    }else{
+      res.status(422).send({
+        code:422,
+        message : "ada yang salah dari input"
+      })
+    }
+  }).catch(err =>{
+    res.status(500).send({
+      code:500,
+      message : "Error ubad data > " + err
+    })
+  })
 }
 
 exports.hapusDataKeranjang = async (req, res)=>{
-  
+  const id = req.params.id
+  db.keranjang.destroy({where : {id :id}}).then(result => {
+    res.send ({
+      code:200,
+      message : "Sukses hapus data"
+    })
+  }).catch(err =>{
+    res.status(500).send({
+      code :500,
+      message: "Error hapus data > " + err
+    })
+  })
 }
 
 exports.checkout = async (req, res)=>{
